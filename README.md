@@ -5,16 +5,16 @@
   require 'logger'
   require 'logfmtr'
 
-  $logger = Logger.new($stdout)
-  $logger.formatter = Logfmtr::LogfmtLogger.new
+  logger = Logger.new($stdout)
+  logger.formatter = Logfmtr::LogfmtLogger.new
   ```
 
-  # Example
+### Example
   ```
   begin
-    raise NoMethodError.new('some output')
+    raise StandardError.new('some output')
   rescue => e
-    $logger.info e
+    logger.info e
   end
 
   # output
