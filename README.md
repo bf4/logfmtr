@@ -9,6 +9,7 @@
   $logger.formatter = Logfmtr.new
 
   # Example
+  ```
   begin
     raise NoMethodError.new('omg wtf')
   rescue => e
@@ -17,3 +18,4 @@
 
   # output
   # level=INFO datetime=2015-07-01 08:29:52 -0500 progname= msg=omg wtf
+  ```
