@@ -15,6 +15,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rake"
   s.add_development_dependency "rspec", "~>3.3.0"
+  s.add_development_dependency 'logfmt', '~> 0.0.7'
 
   s.files         = `git ls-files`.split("\n")
   # s.files         = Dir['lib/*.rb']
