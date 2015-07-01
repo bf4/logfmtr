@@ -33,9 +33,9 @@ describe Logfmtr::LogfmtLogger do
     logHash = { :foo => "bar", :baz => "hello world" }
     logger.info(logHash)
 
-    expectedHash = { "level" => "INFO", "foo" => "bar", "baz" => "hello world" }
+    expectedHash = {"level" => "INFO", "foo" => "bar", "baz" => "hello world"}
     actualHash = Logfmt.parse(buffer.string)
-    expect(actualHash).to be_hash_matching(expectedHash)    
+    expect(actualHash).to include(expectedHash)
   end
 end
 
