@@ -1,7 +1,7 @@
 # logfmtr
 
 ## Usage
-  ```
+  ```ruby
   require 'logger'
   require 'logfmtr'
 
@@ -10,7 +10,7 @@
   ```
 
 ### Example
-  ```
+  ```ruby
   begin
     raise StandardError.new('some output')
   rescue => e
