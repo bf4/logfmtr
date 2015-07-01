@@ -1,5 +1,7 @@
 require 'spec_helper'
 require 'logger'
+require 'logfmt'
+require 'stringio'
 
 describe Logfmtr::LogfmtLogger do
   it "exists" do
@@ -20,6 +22,20 @@ describe Logfmtr::LogfmtLogger do
   it "logs hashes smarter" do
     dt_format = default_datetime_format
     expect { log_hash(dt_format) }.to output("level=INFO datetime=#{Time.now.strftime(dt_format)} progname= one=1 two=2\n").to_stdout
+  end
+
+  it "logs hashes in logfmt format" do
+    buffer = StringIO.new
+    logger = Logger.new(buffer)
+    dt_format = default_datetime_format
+    logger.formatter = Logfmtr::LogfmtLogger.new(dt_format)
+    
+    logHash = { :foo => "bar", :baz => "hello world" }
+    logger.info(logHash)
+
+    expectedHash = { "level" => "INFO", "foo" => "bar", "baz" => "hello world" }
+    actualHash = Logfmt.parse(buffer.string)
+    expect(actualHash).to be_hash_matching(expectedHash)    
   end
 end
 
