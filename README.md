@@ -63,3 +63,5 @@ logger.info({ one: 1, two: 2 })
 # output
 # level=INFO datetime=2015-07-01 08:29 CDT progname= one=1 two=2
 ```
+### Note about datetime_format
+The default datetime_format in Logger::Formatter appears to be "%Y-%m-%d %H:%M:%S %z". When you set your `logger.datetime_format=`, it does not get used by the formatter class. Logger::Formatter appears to have its own default. This gem makes that explicit.
