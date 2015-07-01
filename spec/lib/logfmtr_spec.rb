@@ -25,16 +25,16 @@ describe Logfmtr::LogfmtLogger do
   end
 
   it "logs hashes in logfmt format" do
-    buffer = StringIO.new
-    logger = Logger.new(buffer)
     dt_format = default_datetime_format
-    logger.formatter = Logfmtr::LogfmtLogger.new(dt_format)
-    
-    logHash = { :foo => "bar", :baz => "hello world" }
-    logger.info(logHash)
+
+    output = log_to_buffer do |logger|
+      logger.formatter = Logfmtr::LogfmtLogger.new(dt_format)
+      logHash = { :foo => "bar", :baz => "hello world" }
+      logger.info logHash
+    end
 
     expectedHash = {"level" => "INFO", "foo" => "bar", "baz" => "hello world"}
-    actualHash = Logfmt.parse(buffer.string)
+    actualHash = Logfmt.parse output
     expect(actualHash).to include(expectedHash)
   end
 end
@@ -45,6 +45,13 @@ end
 
 def default_datetime_format
   "%Y-%m-%d %H:%M:%S %z"
+end
+
+def log_to_buffer
+  buffer = StringIO.new
+  logger = Logger.new buffer
+  yield logger
+  buffer.string
 end
 
 def log_error(datetime_format)
