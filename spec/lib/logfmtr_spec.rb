@@ -4,7 +4,7 @@ require 'logger'
 describe Logfmtr::LogfmtLogger do
   it "exists" do
     logfmtr = Logfmtr::LogfmtLogger.new
-    expect(logfmtr).not_to be_nil
+    expect(logfmtr).to be
   end
 
   it "logs using default datetime format" do
@@ -27,7 +27,6 @@ end
 def log(datetime_format)
   begin
     logger = Logger.new($stdout)
-    logger.level = Logger::DEBUG
     logger.formatter = Logfmtr::LogfmtLogger.new(datetime_format)
     raise StandardError.new('some output')
   rescue => e
