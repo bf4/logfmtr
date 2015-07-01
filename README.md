@@ -1,6 +1,11 @@
 # logfmtr
+The default ruby logger (`require 'logger'`) outputs in this format:
+```
+I, [2015-07-01T11:47:45.157173 #29367]  INFO -- : some message here (StandardError)
+```
+This provides a replacement for the default Logger::Formatter class, and it formats logs in key=value format.
 
-A replacement for Logger::Formatter class that formats logs in key=value format. Logs a hash as:
+Logs a hash as:
 ```
 { one: 1, two: 2 } => one=1 two=2
 ```
@@ -10,6 +15,7 @@ Everything else as:
 ```
 ## Usage
 ### Example logging error
+Errors have their own `.to_s` implementation.
 ```ruby
 require 'logger'
 require 'logfmtr'
