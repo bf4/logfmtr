@@ -1,6 +1,8 @@
 module Logfmtr
-  class Logfmtr
-    def initialize; end
+  class LogfmtLogger
+    def initialize(datetime_format=nil)
+      @datetime_format = datetime_format || "%Y-%m-%d %H:%M:%S %z"
+    end
 
     def call(severity, datetime, progname, msg)
       if msg.is_a? Hash
@@ -9,7 +11,7 @@ module Logfmtr
         msg_str = "msg=#{msg}"
       end
 
-      "level=#{severity} datetime=#{datetime} progname=#{progname} #{msg_str}\n"
+      "level=#{severity} datetime=#{datetime.strftime(@datetime_format)} progname=#{progname} #{msg_str}\n"
     end
 
     private

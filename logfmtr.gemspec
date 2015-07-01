@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.description = %q{for formatting logs in logfmt}
 
   s.add_dependency "rake"
-  s.add_development_dependency "rspec", "~>2.5.0"
+  s.add_development_dependency "rspec", "~>3.3.0"
 
   s.files         = `git ls-files`.split("\n")
   # s.files         = Dir['lib/*.rb']
