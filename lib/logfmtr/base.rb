@@ -31,15 +31,7 @@ module Logfmtr
     end
 
     def needs_quotes(message)
-      if contains_whitespace(message)
-        true
-      else
-        false
-      end
-    end
-
-    def contains_whitespace(str)
-      if str.to_s =~ /\s/i
+      if str.to_s =~ /\s/
         true
       else
         false
