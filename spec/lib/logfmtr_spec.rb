@@ -11,17 +11,17 @@ describe Logfmtr::LogfmtLogger do
 
   it "logs using default datetime format" do
     dt_format = default_datetime_format
-    expect { log_error(nil) }.to output("level=ERROR datetime=#{Time.now.strftime(dt_format)} progname= msg=some output\n").to_stdout
+    expect { log_error(nil) }.to output("level=ERROR datetime=\"#{Time.now.strftime(dt_format)}\" progname= msg=\"some output\"\n").to_stdout
   end
 
   it "logs using custom datetime format" do
     dt_format = custom_datetime_format
-    expect { log_error(dt_format) }.to output("level=ERROR datetime=#{Time.now.strftime(dt_format)} progname= msg=some output\n").to_stdout
+    expect { log_error(dt_format) }.to output("level=ERROR datetime=\"#{Time.now.strftime(dt_format)}\" progname= msg=\"some output\"\n").to_stdout
   end
 
   it "logs hashes smarter" do
     dt_format = default_datetime_format
-    expect { log_hash(dt_format) }.to output("level=INFO datetime=#{Time.now.strftime(dt_format)} progname= one=1 two=2\n").to_stdout
+    expect { log_hash(dt_format) }.to output("level=INFO datetime=\"#{Time.now.strftime(dt_format)}\" progname= one=1 two=2\n").to_stdout
   end
 
   it "logs hashes in logfmt format" do
