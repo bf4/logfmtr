@@ -11,17 +11,17 @@ describe Logfmtr::LogfmtLogger do
 
   it "logs using default datetime format" do
     dt_format = default_datetime_format
-    expect { log_error(nil) }.to output("level=ERROR datetime=\"#{Time.now.strftime(dt_format)}\" progname= msg=\"some output\"\n").to_stdout
+    expect { log_error(nil) }.to output(%Q[level=ERROR datetime="#{Time.now.strftime(dt_format)}" progname= msg="some output"\n]).to_stdout
   end
 
   it "logs using custom datetime format" do
     dt_format = custom_datetime_format
-    expect { log_error(dt_format) }.to output("level=ERROR datetime=\"#{Time.now.strftime(dt_format)}\" progname= msg=\"some output\"\n").to_stdout
+    expect { log_error(dt_format) }.to output(%Q[level=ERROR datetime="#{Time.now.strftime(dt_format)}" progname= msg="some output"\n]).to_stdout
   end
 
-  it "logs hashes smarter" do
+  it "logs hashes basically" do
     dt_format = default_datetime_format
-    expect { log_hash(dt_format) }.to output("level=INFO datetime=\"#{Time.now.strftime(dt_format)}\" progname= one=1 two=2\n").to_stdout
+    expect { log_hash(dt_format) }.to output(%Q[level=INFO datetime="#{Time.now.strftime(dt_format)}" progname= one=1 two=2 three="!@#$$%^&*}"\n]).to_stdout
   end
 
   it "logs hashes in logfmt format" do
@@ -36,6 +36,10 @@ describe Logfmtr::LogfmtLogger do
     expectedHash = {"level" => "INFO", "foo" => "bar", "baz" => "hello world"}
     actualHash = Logfmt.parse output
     expect(actualHash).to include(expectedHash)
+  end
+
+  it "puts quotes around values that need them" do
+
   end
 end
 
@@ -65,7 +69,7 @@ end
 
 def log_hash(datetime_format)
   logger = logger_init(datetime_format)
-  logger.info ({ one: 1, two: 2 })
+  logger.info ({ one: 1, two: 2, three: "!@#$$%^&*}" })
 end
 
 def logger_init(datetime_format)
