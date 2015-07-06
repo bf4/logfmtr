@@ -23,18 +23,10 @@ module Logfmtr
     end
 
     def add_quotes(message)
-      if needs_quotes(message)
+      if message.to_s =~ /\s/
         %Q["#{message}"]
       else
         %Q[#{message}]
-      end
-    end
-
-    def needs_quotes(message)
-      if message.to_s =~ /\s/
-        true
-      else
-        false
       end
     end
   end
