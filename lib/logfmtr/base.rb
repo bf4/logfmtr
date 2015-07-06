@@ -31,7 +31,7 @@ module Logfmtr
     end
 
     def needs_quotes(message)
-      if str.to_s =~ /\s/
+      if message.to_s =~ /\s/
         true
       else
         false
