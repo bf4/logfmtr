@@ -11,7 +11,7 @@ Logs a hash as:
 ```
 Everything else as:
 ```
-=> msg=your message here
+=> msg="your message here"
 ```
 ## Usage
 ### Example logging error
@@ -30,7 +30,7 @@ rescue => e
 end
 
 # output
-# level=ERROR datetime=2015-07-01 08:29:52 -0500 progname= msg=some output
+# level=ERROR datetime="2015-07-01 08:29:52" -0500 progname= msg="some output"
 ```
 ### Example logging error with a custom datetime format
 ```ruby
@@ -47,7 +47,7 @@ rescue => e
 end
 
 # output
-# level=ERROR datetime=2015-07-01 08:29 CDT progname= msg=some output
+# level=ERROR datetime="2015-07-01 08:29 CDT" progname= msg="some output"
 ```
 ### Example logging hash
 It pulls out hash values into their own key=value pairs in logfmt.
@@ -61,7 +61,7 @@ logger.formatter = Logfmtr::LogfmtLogger.new
 logger.info({ one: 1, two: 2 })
 
 # output
-# level=INFO datetime=2015-07-01 08:29 CDT progname= one=1 two=2
+# level=INFO datetime="2015-07-01 08:29 CDT" progname= one=1 two=2
 ```
 ### Note about datetime_format
 The default datetime_format in Logger::Formatter appears to be `"%Y-%m-%d %H:%M:%S %z"`. When you set your `logger.datetime_format=`, it does not get used by the formatter class. Logger::Formatter appears to have its own default. This gem makes that explicit.
