@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.date        = %q{2015-06-30}
   s.authors     = ['Archana Sriram']
-  s.email       = 'artistic.archana@gmail.com'
+  s.email       = 'creativehandle@gmail.com'
   s.homepage    = ""
   s.summary     = %q{a replacement for Logger::Formatter}
   s.description = %q{for formatting logs in logfmt}
@@ -18,7 +18,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'logfmt', '~> 0.0.7'
 
   s.files         = `git ls-files`.split("\n")
-  # s.files         = Dir['lib/*.rb']
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_paths = ["lib"]
 end
