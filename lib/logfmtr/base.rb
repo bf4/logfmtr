@@ -8,7 +8,8 @@ module Logfmtr
       if msg.is_a? Hash
         msg_str = logfmtify_hash(msg)
       else
-        msg_str = %Q[msg=#{add_quotes(msg)}]
+        msg = add_quotes(escape_newlines(msg))
+        msg_str = %Q[msg=#{msg}]
       end
 
       %Q[level=#{severity} datetime="#{datetime.strftime(@datetime_format)}" progname=#{progname} #{msg_str}\n]
@@ -18,7 +19,8 @@ module Logfmtr
 
     def logfmtify_hash(message)
       message.collect do |key, value|
-        %Q[#{key}=#{add_quotes(value)}]
+        value = add_quotes(escape_newlines(value))
+        %Q[#{key}=#{value}]
       end.join(' ')
     end
 
@@ -36,6 +38,10 @@ module Logfmtr
       else
         false
       end
+    end
+
+    def escape_newlines(message)
+      message.to_s.gsub(/\n/, "\\n")
     end
   end
 end

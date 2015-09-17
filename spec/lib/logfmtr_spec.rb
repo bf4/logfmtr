@@ -39,7 +39,13 @@ describe Logfmtr::LogfmtLogger do
   end
 
   it "puts quotes around values that need them" do
+    dt_format = default_datetime_format
+    expect { log_quotes_needed(dt_format) }.to output(%Q[level=INFO datetime="#{Time.now.strftime(dt_format)}" progname= msg="Testing some /stuff"\n]).to_stdout
+  end
 
+  it "escapes new lines in values" do
+    dt_format = default_datetime_format
+    expect { escape_newlines_needed(dt_format) }.to output(%Q[level=INFO datetime="#{Time.now.strftime(dt_format)}" progname= msg="Testing some\\nstuff"\n]).to_stdout
   end
 end
 
@@ -70,6 +76,16 @@ end
 def log_hash(datetime_format)
   logger = logger_init(datetime_format)
   logger.info ({ one: 1, two: 2, three: "!@#$$%^&*}" })
+end
+
+def log_quotes_needed(datetime_format)
+  logger = logger_init(datetime_format)
+  logger.info ("Testing some /stuff")
+end
+
+def escape_newlines_needed(datetime_format)
+  logger = logger_init(datetime_format)
+  logger.info ("Testing some\nstuff")
 end
 
 def logger_init(datetime_format)
